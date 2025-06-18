@@ -79,4 +79,9 @@ public class BrownianSceneSetup : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(Vector3.zero, boundsSize);
     }
+
+    public List<GameObject> GetMovingObjects()
+    {
+        return movingObjects;
+    }
 }

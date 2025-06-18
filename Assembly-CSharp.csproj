@@ -65,10 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\BrownianSceneSetup.cs" />
-    <Compile Include="Assets\scripts\BroadPhaseDLL.cs" />
     <Compile Include="Assets\scripts\BFTester.cs" />
-    <Compile Include="Assets\scripts\BroadphaseTester2.cs" />
+    <Compile Include="Assets\scripts\BroadmarkTester.cs" />
     <Compile Include="Assets\scripts\BrownianMotion.cs" />
+    <Compile Include="Assets\scripts\AABB.cs" />
     <Compile Include="Assets\scripts\testeDLL.cs" />
   </ItemGroup>
   <ItemGroup>
