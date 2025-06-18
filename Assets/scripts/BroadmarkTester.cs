@@ -91,7 +91,7 @@ public class BroadmarkTester : MonoBehaviour
                 new Vec3(14f, 14f, 14f)
             );
 
-            Debug.Log("🚀 Dados enviados. Executando Initialize...");
+            Debug.Log("🚀 Dados enviados. Executando  Initialize...");
 
             BF_InitializeWithVecs(
                 testAABBs.Length, testAABBs,
