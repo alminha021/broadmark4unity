@@ -97,8 +97,8 @@ public class BroadmarkManager : MonoBehaviour
 
             BF_InitializeWithVecs(
                 aabbs.Length, aabbs,
-                -50f, -50f, -50f,   // World min
-                 50f,  50f,  50f,   // World max
+                -10f, -10f, -10f,   // World min
+                 10f,  10f,  10f,   // World max
                 0.01f, 0.01f, 0.01f // Margin
             );
 
