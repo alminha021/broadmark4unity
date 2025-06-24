@@ -5,20 +5,30 @@ using UnityEngine;
 
 public class BroadmarkManager : MonoBehaviour
 {
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Vec3 { public float x, y, z; }
+    [StructLayout(LayoutKind.Sequential, Pack = 4)]
+    public struct Vec3
+    {
+        public float x, y, z, w;
+        public Vec3(float x, float y, float z)
+        {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.w = 0f; // Alinhamento igual ao C++
+        }
+    }
 
-    [StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct Aabb
     {
         public Vec3 min;
         public Vec3 max;
     }
 
-    [DllImport("Broadmarkfix", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("bf", CallingConvention = CallingConvention.Cdecl)]
     private static extern void BF_Create();
 
-    [DllImport("Broadmarkfix", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("bf", CallingConvention = CallingConvention.Cdecl)]
     private static extern void BF_InitializeWithVecs(
         int numberOfObjects, [In] Aabb[] aabbs,
         float worldMinX, float worldMinY, float worldMinZ,
@@ -26,16 +36,22 @@ public class BroadmarkManager : MonoBehaviour
         float marginX, float marginY, float marginZ
     );
 
-    [DllImport("Broadmarkfix", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("bf", CallingConvention = CallingConvention.Cdecl)]
+    private static extern void BF_UpdateObjects([In] Aabb[] aabbs);
+
+    [DllImport("bf", CallingConvention = CallingConvention.Cdecl)]
     private static extern void BF_SearchOverlaps();
 
-    [DllImport("Broadmarkfix", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("bf", CallingConvention = CallingConvention.Cdecl)]
     private static extern UIntPtr BF_GetPairCount();
 
-    [DllImport("Broadmarkfix", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("bf", CallingConvention = CallingConvention.Cdecl)]
     private static extern void BF_Destroy();
 
+
     private ulong totalOverlaps = 0;
+    private int lastObjectCount = 0;
+    private bool isInitialized = false;
 
     void Start()
     {
@@ -47,7 +63,7 @@ public class BroadmarkManager : MonoBehaviour
         while (true)
         {
             RunBroadPhaseTest();
-            yield return new WaitForSeconds(1f); // No futuro usar Update() para frame a frame
+            yield return new WaitForSeconds(0.02f); // Atualiza a cada 20ms
         }
     }
 
@@ -60,63 +76,80 @@ public class BroadmarkManager : MonoBehaviour
             if (objects.Length == 0)
             {
                 Debug.LogWarning("❗ Nenhum objeto AABB encontrado na cena.");
+                isInitialized = false;
                 return;
             }
 
             Aabb[] aabbs = new Aabb[objects.Length];
 
-            // Resetar as cores antes do teste
-            foreach (var obj in objects)
-            {
-                obj.SetColor(Color.white);
-            }
-
+            // Preenche AABBs
             for (int i = 0; i < objects.Length; i++)
             {
                 objects[i].UpdateAABB();
                 aabbs[i] = new Aabb
                 {
-                    min = new Vec3
-                    {
-                        x = objects[i].min.x,
-                        y = objects[i].min.y,
-                        z = objects[i].min.z
-                    },
-                    max = new Vec3
-                    {
-                        x = objects[i].max.x,
-                        y = objects[i].max.y,
-                        z = objects[i].max.z
-                    }
+                    min = new Vec3(objects[i].min.x, objects[i].min.y, objects[i].min.z),
+                    max = new Vec3(objects[i].max.x, objects[i].max.y, objects[i].max.z)
                 };
             }
 
-            // 🔥 Sempre destruir antes de criar, para garantir que a memória não fique suja
-            BF_Destroy();
-            BF_Create();
+            // Resetar cor dos objetos
+            foreach (var obj in objects)
+                obj.SetColor(Color.white);
 
-            BF_InitializeWithVecs(
-                aabbs.Length, aabbs,
-                -10f, -10f, -10f,   // World min
-                 10f,  10f,  10f,   // World max
-                0.01f, 0.01f, 0.01f // Margin
-            );
+            // Checa se é necessário reinicializar (quando a quantidade muda)
+            if (!isInitialized || objects.Length != lastObjectCount)
+            {
+                BF_Destroy();
+                BF_Create();
 
+                BF_InitializeWithVecs(
+                    aabbs.Length, aabbs,
+                    -100f, -100f, -100f,
+                    100f, 100f, 100f,
+                    0.01f, 0.01f, 0.01f
+                );
+
+                lastObjectCount = aabbs.Length;
+                isInitialized = true;
+            }
+            else
+            {
+                BF_UpdateObjects(aabbs);
+            }
+
+            // Executa busca de colisões
             BF_SearchOverlaps();
 
-            ulong framePairs = BF_GetPairCount().ToUInt64();
-            totalOverlaps += framePairs;
+            ulong pairCount = BF_GetPairCount().ToUInt64();
+            totalOverlaps += pairCount;
 
-            Debug.Log($"🟢 Pares detectados neste frame: {framePairs}");
-            Debug.Log($"🔢 Total acumulado até agora: {totalOverlaps}");
+            Debug.Log($"🟢 Pares detectados neste frame: {pairCount}");
 
-            BF_Destroy();
+            // ✔️ Validação cruzada: brute force em C# (apenas visual)
+            for (int i = 0; i < objects.Length; i++)
+            {
+                for (int j = i + 1; j < objects.Length; j++)
+                {
+                    if (CheckAABBOverlap(objects[i], objects[j]))
+                    {
+                        //objects[i].SetColor(Color.red);
+                        //objects[j].SetColor(Color.red);
+                    }
+                }
+            }
         }
         catch (Exception e)
         {
             Debug.LogError($"🚨 Erro no Broadmark: {e.Message}");
-            BF_Destroy();
         }
+    }
+
+    bool CheckAABBOverlap(AABBObjectController a, AABBObjectController b)
+    {
+        return (a.min.x <= b.max.x && a.max.x >= b.min.x) &&
+               (a.min.y <= b.max.y && a.max.y >= b.min.y) &&
+               (a.min.z <= b.max.z && a.max.z >= b.min.z);
     }
 
     void OnDestroy()

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class AABBObjectController : MonoBehaviour
 {
+    public int id;  // ID fixo, atribuído externamente
+
     public Vector3 velocity;
     public float speed = 5f;
     public Vector3 min;
