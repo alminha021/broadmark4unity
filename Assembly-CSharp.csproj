@@ -65,17 +65,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\menu\BroadPhaseUIVisualMock.cs" />
-    <Compile Include="Assets\scripts\BrownianSceneSetup.cs" />
-    <Compile Include="Assets\scripts\WorldBoundsDrawer.cs" />
-    <Compile Include="Assets\scripts\BFTester.cs" />
+    <Compile Include="Assets\scripts\mundo\WorldBoundsColliders.cs" />
+    <Compile Include="Assets\scripts\mundo\WorldBoundsDrawer.cs" />
+    <Compile Include="Assets\scripts\outroscene\BroadmarkTester.cs" />
+    <Compile Include="Assets\scripts\canvas\CollisionUIController.cs" />
+    <Compile Include="Assets\scripts\outroscene\BrownianSceneSetup.cs" />
+    <Compile Include="Assets\scripts\PhysicsModeController.cs" />
     <Compile Include="Assets\scripts\SceneObjectSpawner.cs" />
     <Compile Include="Assets\scripts\AABBGizmoDrawer.cs" />
-    <Compile Include="Assets\scripts\BroadmarkTester.cs" />
-    <Compile Include="Assets\scripts\BrownianMotion.cs" />
+    <Compile Include="Assets\scripts\mundo\WorldBoundsEdgesRenderer.cs" />
+    <Compile Include="Assets\scripts\outroscene\BrownianMotion.cs" />
+    <Compile Include="Assets\scripts\outroscene\testeDLL.cs" />
     <Compile Include="Assets\scripts\AABBObjectController.cs" />
-    <Compile Include="Assets\scripts\AABB.cs" />
-    <Compile Include="Assets\scripts\testeDLL.cs" />
+    <Compile Include="Assets\scripts\outroscene\BFTester.cs" />
     <Compile Include="Assets\scripts\BroadmarkManager.cs" />
+    <Compile Include="Assets\scripts\outroscene\AABB.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

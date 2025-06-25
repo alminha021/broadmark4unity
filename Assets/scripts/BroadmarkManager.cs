@@ -14,7 +14,7 @@ public class BroadmarkManager : MonoBehaviour
             this.x = x;
             this.y = y;
             this.z = z;
-            this.w = 0f; // Alinhamento igual ao C++
+            this.w = 0f;
         }
     }
 
@@ -48,10 +48,12 @@ public class BroadmarkManager : MonoBehaviour
     [DllImport("bf", CallingConvention = CallingConvention.Cdecl)]
     private static extern void BF_Destroy();
 
-
     private ulong totalOverlaps = 0;
     private int lastObjectCount = 0;
     private bool isInitialized = false;
+
+    [Header("UI")]
+    public CollisionUIController collisionUIController;
 
     void Start()
     {
@@ -63,7 +65,7 @@ public class BroadmarkManager : MonoBehaviour
         while (true)
         {
             RunBroadPhaseTest();
-            yield return new WaitForSeconds(0.02f); // Atualiza a cada 20ms
+            yield return new WaitForSeconds(0.02f); // 50 fps
         }
     }
 
@@ -77,12 +79,15 @@ public class BroadmarkManager : MonoBehaviour
             {
                 Debug.LogWarning("❗ Nenhum objeto AABB encontrado na cena.");
                 isInitialized = false;
+
+                if (collisionUIController != null)
+                    collisionUIController.UpdateCollisionCount(0);
+
                 return;
             }
 
             Aabb[] aabbs = new Aabb[objects.Length];
 
-            // Preenche AABBs
             for (int i = 0; i < objects.Length; i++)
             {
                 objects[i].UpdateAABB();
@@ -95,9 +100,8 @@ public class BroadmarkManager : MonoBehaviour
 
             // Resetar cor dos objetos
             foreach (var obj in objects)
-                obj.SetColor(Color.white);
+                obj.SetColor(Color.green);
 
-            // Checa se é necessário reinicializar (quando a quantidade muda)
             if (!isInitialized || objects.Length != lastObjectCount)
             {
                 BF_Destroy();
@@ -118,23 +122,23 @@ public class BroadmarkManager : MonoBehaviour
                 BF_UpdateObjects(aabbs);
             }
 
-            // Executa busca de colisões
             BF_SearchOverlaps();
 
             ulong pairCount = BF_GetPairCount().ToUInt64();
             totalOverlaps += pairCount;
 
-            Debug.Log($"🟢 Pares detectados neste frame: {pairCount}");
+            if (collisionUIController != null)
+                collisionUIController.UpdateCollisionCount(pairCount);
 
-            // ✔️ Validação cruzada: brute force em C# (apenas visual)
+            // Validação visual C#
             for (int i = 0; i < objects.Length; i++)
             {
                 for (int j = i + 1; j < objects.Length; j++)
                 {
                     if (CheckAABBOverlap(objects[i], objects[j]))
                     {
-                        //objects[i].SetColor(Color.red);
-                        //objects[j].SetColor(Color.red);
+                        objects[i].SetColor(Color.red);
+                        objects[j].SetColor(Color.red);
                     }
                 }
             }

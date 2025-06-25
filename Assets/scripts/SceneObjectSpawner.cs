@@ -16,7 +16,7 @@ public class SceneObjectSpawner : MonoBehaviour
             );
 
             GameObject obj = Instantiate(prefab, pos, Quaternion.identity);
-            obj.transform.localScale = Vector3.one * Random.Range(0.5f, 1.5f);
+            obj.transform.localScale = Vector3.one * Random.Range(3f, 6f);
 
             obj.AddComponent<AABBObjectController>();
         }
