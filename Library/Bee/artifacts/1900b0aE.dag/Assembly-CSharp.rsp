@@ -357,6 +357,7 @@
 "Assets/scripts/BroadmarkManager.cs"
 "Assets/scripts/canvas/CollisionUIController.cs"
 "Assets/scripts/menu/BroadPhaseUIVisualMock.cs"
+"Assets/scripts/mundo/OrbitCamera.cs"
 "Assets/scripts/mundo/WorldBoundsColliders.cs"
 "Assets/scripts/mundo/WorldBoundsDrawer.cs"
 "Assets/scripts/mundo/WorldBoundsEdgesRenderer.cs"
@@ -368,6 +369,7 @@
 "Assets/scripts/outroscene/testeDLL.cs"
 "Assets/scripts/PhysicsModeController.cs"
 "Assets/scripts/SceneObjectSpawner.cs"
+"Assets/scripts/TracyManager.cs"
 -langversion:9.0
 /unsafe+
 /deterministic

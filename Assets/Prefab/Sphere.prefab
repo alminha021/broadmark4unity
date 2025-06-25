@@ -162,5 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb183afcce18d54dbd1fd796fd61090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
-  speed: 200
+  mode: 4
+  speed: 150
+  rotationInterval: 10
+  hurricaneForce: 50
+  hurricaneCenter: {x: 0, y: 0, z: 0}
