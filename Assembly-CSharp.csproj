@@ -68,20 +68,21 @@
     <Compile Include="Assets\scripts\mundo\WorldBoundsColliders.cs" />
     <Compile Include="Assets\scripts\mundo\WorldBoundsDrawer.cs" />
     <Compile Include="Assets\scripts\outroscene\BroadmarkTester.cs" />
-    <Compile Include="Assets\scripts\TracyManager.cs" />
+    <Compile Include="Assets\scripts\algoritmos\BroadmarkManager.cs" />
     <Compile Include="Assets\scripts\mundo\OrbitCamera.cs" />
     <Compile Include="Assets\scripts\canvas\CollisionUIController.cs" />
     <Compile Include="Assets\scripts\outroscene\BrownianSceneSetup.cs" />
     <Compile Include="Assets\scripts\PhysicsModeController.cs" />
+    <Compile Include="Assets\scripts\algoritmos\KDManager.cs" />
     <Compile Include="Assets\scripts\SceneObjectSpawner.cs" />
     <Compile Include="Assets\scripts\AABBGizmoDrawer.cs" />
     <Compile Include="Assets\scripts\mundo\WorldBoundsEdgesRenderer.cs" />
     <Compile Include="Assets\scripts\outroscene\BrownianMotion.cs" />
     <Compile Include="Assets\scripts\outroscene\testeDLL.cs" />
+    <Compile Include="Assets\scripts\algoritmos\TracyManager.cs" />
     <Compile Include="Assets\scripts\AABBObjectController.cs" />
     <Compile Include="Assets\scripts\outroscene\BFTester.cs" />
     <Compile Include="Assets\scripts\outroscene\AABB.cs" />
-    <Compile Include="Assets\scripts\BroadmarkManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

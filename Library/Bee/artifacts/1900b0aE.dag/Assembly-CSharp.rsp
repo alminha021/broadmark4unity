@@ -354,7 +354,9 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.50f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/scripts/AABBGizmoDrawer.cs"
 "Assets/scripts/AABBObjectController.cs"
-"Assets/scripts/BroadmarkManager.cs"
+"Assets/scripts/algoritmos/BroadmarkManager.cs"
+"Assets/scripts/algoritmos/KDManager.cs"
+"Assets/scripts/algoritmos/TracyManager.cs"
 "Assets/scripts/canvas/CollisionUIController.cs"
 "Assets/scripts/menu/BroadPhaseUIVisualMock.cs"
 "Assets/scripts/mundo/OrbitCamera.cs"
@@ -369,7 +371,6 @@
 "Assets/scripts/outroscene/testeDLL.cs"
 "Assets/scripts/PhysicsModeController.cs"
 "Assets/scripts/SceneObjectSpawner.cs"
-"Assets/scripts/TracyManager.cs"
 -langversion:9.0
 /unsafe+
 /deterministic

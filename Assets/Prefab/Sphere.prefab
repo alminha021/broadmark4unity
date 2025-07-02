@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 4
-  speed: 150
+  speed: 100
   rotationInterval: 10
   hurricaneForce: 50
   hurricaneCenter: {x: 0, y: 0, z: 0}
