@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class KDManager : MonoBehaviour
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 4)]
+     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct Vec3
     {
         public float x, y, z, w;
@@ -25,30 +25,31 @@ public class KDManager : MonoBehaviour
         public Vec3 max;
     }
 
-    [DllImport("BroadmarkPluginV1", CallingConvention = CallingConvention.Cdecl)]
+
+    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_Create();
 
-    [DllImport("BroadmarkPluginV1", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_InitializeWithVecs(
-        int numberOfObjects, [In] Aabb[] aabbs,
+        UIntPtr numberOfObjects, [In] Aabb[] aabbs,
         float worldMinX, float worldMinY, float worldMinZ,
         float worldMaxX, float worldMaxY, float worldMaxZ,
         float marginX, float marginY, float marginZ
     );
 
-    [DllImport("BroadmarkPluginV1", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_UpdateObjects([In] Aabb[] aabbs);
 
-    [DllImport("BroadmarkPluginV1", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_CleanCache();
 
-    [DllImport("BroadmarkPluginV1", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_SearchOverlaps();
 
-    [DllImport("BroadmarkPluginV1", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
     private static extern UIntPtr KD_GetPairCount();
 
-    [DllImport("BroadmarkPluginV1", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_Destroy();
 
     private ulong totalOverlaps = 0;
@@ -58,17 +59,14 @@ public class KDManager : MonoBehaviour
     [Header("UI")]
     public CollisionUIController collisionUIController;
 
-    void Start()
-    {
-        StartCoroutine(UpdateOverlapsLoop());
-    }
+    void Start() => StartCoroutine(UpdateOverlapsLoop());
 
     IEnumerator UpdateOverlapsLoop()
     {
         while (true)
         {
             RunKDTest();
-            yield return new WaitForSeconds(0.02f); // Atualiza a cada 20 ms (~50 FPS)
+            yield return new WaitForSeconds(0.02f);
         }
     }
 
@@ -77,20 +75,15 @@ public class KDManager : MonoBehaviour
         try
         {
             var objects = FindObjectsOfType<AABBObjectController>();
-
             if (objects.Length == 0)
             {
-                Debug.LogWarning("❗ Nenhum objeto AABB encontrado na cena.");
+                Debug.LogWarning("❗ Nenhum objeto AABB na cena.");
                 isInitialized = false;
-
-                if (collisionUIController != null)
-                    collisionUIController.UpdateCollisionCount(0);
-
+                collisionUIController?.UpdateCollisionCount(0);
                 return;
             }
 
             Aabb[] aabbs = new Aabb[objects.Length];
-
             for (int i = 0; i < objects.Length; i++)
             {
                 objects[i].UpdateAABB();
@@ -99,10 +92,8 @@ public class KDManager : MonoBehaviour
                     min = new Vec3(objects[i].min.x, objects[i].min.y, objects[i].min.z),
                     max = new Vec3(objects[i].max.x, objects[i].max.y, objects[i].max.z)
                 };
+                objects[i].SetColor(Color.green);
             }
-
-            foreach (var obj in objects)
-                obj.SetColor(Color.green);
 
             if (!isInitialized || objects.Length != lastObjectCount)
             {
@@ -110,7 +101,7 @@ public class KDManager : MonoBehaviour
                 KD_Create();
 
                 KD_InitializeWithVecs(
-                    aabbs.Length, aabbs,
+                    (UIntPtr)aabbs.Length, aabbs,
                     -100f, -100f, -100f,
                     100f, 100f, 100f,
                     0.01f, 0.01f, 0.01f
@@ -126,9 +117,10 @@ public class KDManager : MonoBehaviour
 
             KD_CleanCache();
             KD_SearchOverlaps();
+             
 
             ulong pairCount = KD_GetPairCount().ToUInt64();
-            totalOverlaps = pairCount;
+            totalOverlaps = pairCount; // Atualiza o valor, não acumula
 
             if (collisionUIController != null)
                 collisionUIController.UpdateCollisionCount(pairCount);
@@ -147,20 +139,18 @@ public class KDManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"🚨 Erro no KDTree: {e.Message}");
+            Debug.LogError($"🚨 KDTree Erro: {e.Message}");
         }
     }
 
-    bool CheckAABBOverlap(AABBObjectController a, AABBObjectController b)
-    {
-        return (a.min.x <= b.max.x && a.max.x >= b.min.x) &&
-               (a.min.y <= b.max.y && a.max.y >= b.min.y) &&
-               (a.min.z <= b.max.z && a.max.z >= b.min.z);
-    }
+    bool CheckAABBOverlap(AABBObjectController a, AABBObjectController b) =>
+        a.min.x <= b.max.x && a.max.x >= b.min.x &&
+        a.min.y <= b.max.y && a.max.y >= b.min.y &&
+        a.min.z <= b.max.z && a.max.z >= b.min.z;
 
     void OnDestroy()
     {
-        Debug.Log("🧹 Limpando KDTree na destruição.");
+        Debug.Log("🧹 Limpando KDTree.");
         KD_Destroy();
     }
 }
