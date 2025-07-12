@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PhysicsModeController : MonoBehaviour
 {
+    //funcionamento da fisica nos obj para os cenarios, deve estar acoplado nos prefabs
     public enum MovementMode
     {
         Brownian,

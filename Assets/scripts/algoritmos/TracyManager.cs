@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class TracyManager : MonoBehaviour
-{
+{//Layout q utilizo nos 3 ancoras,scripts nos gameobjects, para fujncionar a troca de dll e csharp
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    public struct Vec3
+    public struct Vec3 //strucklayout [in] [out] para correçao de bugs, de garbagecollector e gerenciar memoria
     {
         public float x, y, z, w;
-        public Vec3(float x, float y, float z)
+        public Vec3(float x, float y, float z) //precisa do w, pois na dll sao 4 valores o vec, q eh como o broadmark funciona
         {
             this.x = x;
             this.y = y;
@@ -24,7 +24,7 @@ public class TracyManager : MonoBehaviour
         public Vec3 min;
         public Vec3 max;
     }
-
+     //conjunto de dllimport, as funcoes q o algoritmo usa
     [DllImport("BFnTracy", CallingConvention = CallingConvention.Cdecl)]
     private static extern void TRACY_Create();
 
@@ -80,7 +80,7 @@ public class TracyManager : MonoBehaviour
 
             if (objects.Length == 0)
             {
-                Debug.LogWarning("❗ Nenhum objeto AABB encontrado na cena.");
+                Debug.LogWarning("Nenhum objeto AABB encontrado na cena.");
                 isInitialized = false;
 
                 if (collisionUIController != null)
@@ -151,7 +151,7 @@ public class TracyManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"🚨 Erro no Tracy: {e.Message}");
+            Debug.LogError($" Erro no Tracy: {e.Message}");
         }
     }
 
@@ -164,7 +164,7 @@ public class TracyManager : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log("🧹 Limpando Tracy na destruição.");
+        Debug.Log(" Limpando Tracy na destruição.");
         TRACY_Destroy();
     }
 }

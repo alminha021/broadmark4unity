@@ -11,7 +11,28 @@ public class AlgorithmManager : MonoBehaviour
 
     void Awake()
     {
-        // Ativa o algoritmo escolhido e desativa os outros
+        // Lê o nome salvo no BenchmarkConfig
+        string algName = BenchmarkConfig.Instance.algoritmo;
+
+        // Converte o nome em enum — faz um map simples
+        switch (algName)
+        {
+            case "BruteForce":
+                selectedAlgorithm = AlgorithmType.Alg1;
+                break;
+            case "Tracy":
+                selectedAlgorithm = AlgorithmType.Alg2;
+                break;
+            case "KDTree":
+                selectedAlgorithm = AlgorithmType.Alg3;
+                break;
+            default:
+                selectedAlgorithm = AlgorithmType.Alg1; // fallback
+                break;
+        }
+
+        Debug.Log($"🔍 AlgorithmManager ativando algoritmo: {selectedAlgorithm}");
+
         SetActiveAlgorithm();
     }
 

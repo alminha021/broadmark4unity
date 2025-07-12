@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WorldBoundsEdgesRenderer : MonoBehaviour
+public class WorldBoundsEdgesRenderer : MonoBehaviour //mundo onde vai spawnar e a dll vai poder usar suas func
 {
     public Vector3 worldMin = new Vector3(-50, -50, -50);
     public Vector3 worldMax = new Vector3(50, 50, 50);

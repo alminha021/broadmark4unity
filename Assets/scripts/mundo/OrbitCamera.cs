@@ -13,7 +13,7 @@ public class OrbitCamera : MonoBehaviour
     private float x = 0.0f;
     private float y = 0.0f;
 
-    void Start()
+    void Start() //poder girar ao redor da area onde ocorre a sim
     {
         if (target == null)
         {

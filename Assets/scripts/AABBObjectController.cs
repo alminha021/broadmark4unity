@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AABBObjectController : MonoBehaviour
 {
+    //Um dos modulos principais, com ele calculamos as aabb dos objetos na sim, basicamente o controlador e calculador de aabb em cada frame
     public int id;
 
     public Vector3 min;

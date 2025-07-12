@@ -179,3 +179,5 @@ kdtree,Hurricane,800,30.04,4.79,208.64,542
 kdtree,Hurricane,800,30.11,4.58,218.18,541
 kdtree,Hurricane,800,30.11,4.82,207.65,542
 kdtree,Hurricane,800,30.15,4.54,220.09,541
+KDTree,Brownian,200,30.00,228.91,4.37,570
+Tracy,Hurricane,400,30.01,19.63,50.96,547

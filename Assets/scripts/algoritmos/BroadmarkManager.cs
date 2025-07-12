@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
-
+//Layout q utilizo nos 3 ancoras,scripts nos gameobjects, para fujncionar a troca de dll e csharp
 public class BroadmarkManager : MonoBehaviour
 {
+    //strucklayout [in] [out] para correçao de bugs, de garbagecollector e gerenciar memoria
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct Vec3
     {
+        //precisa do w, pois na dll sao 4 valores o vec, q eh como o broadmark funciona
         public float x, y, z, w;
         public Vec3(float x, float y, float z)
         {
@@ -24,7 +26,7 @@ public class BroadmarkManager : MonoBehaviour
         public Vec3 min;
         public Vec3 max;
     }
-
+    //conjunto de dllimport, as funcoes q o algoritmousa
     [DllImport("bf", CallingConvention = CallingConvention.Cdecl)]
     private static extern void BF_Create();
 
@@ -77,7 +79,8 @@ public class BroadmarkManager : MonoBehaviour
 
             if (objects.Length == 0)
             {
-                Debug.LogWarning("❗ Nenhum objeto AABB encontrado na cena.");
+                //semrpe vai aparecer, o primeiro loop é mais rapido q o spawn
+                Debug.LogWarning("Nenhum objeto AABB encontrado na cena.");
                 isInitialized = false;
 
                 if (collisionUIController != null)
@@ -145,7 +148,7 @@ public class BroadmarkManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"🚨 Erro no Broadmark: {e.Message}");
+            Debug.LogError($" Erro no Broadmark: {e.Message}");
         }
     }
 
@@ -158,7 +161,7 @@ public class BroadmarkManager : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log("🧹 Limpando Broadmark na destruição.");
+        Debug.Log(" Limpando Broadmark na destruição.");
         BF_Destroy();
     }
 }

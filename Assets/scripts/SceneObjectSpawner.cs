@@ -1,22 +1,34 @@
 using UnityEngine;
 using System.Collections;
 
-public class SceneObjectSpawner : MonoBehaviour
+public class SceneObjectSpawner : MonoBehaviour //spawner de obj na scene
 {
-    public GameObject prefab;
-    public int numberOfObjects = 20;
+    [Header("Prefab para spawn")]
+    public GameObject cubePrefab;
+    public GameObject spherePrefab;
 
-    [Header("Physics Mode para os objetos")]
-    public PhysicsModeController.MovementMode chosenMode = PhysicsModeController.MovementMode.Brownian;
+    private int numberOfObjects;
+    private PhysicsModeController.MovementMode chosenMode;
+    private string algoritmo;
 
     void Start()
     {
+        // Lê o que o usuário escolheu no BenchmarkConfig
+        numberOfObjects = BenchmarkConfig.Instance.numeroDeObjetos;
+        chosenMode = BenchmarkConfig.Instance.scenario;
+        algoritmo = BenchmarkConfig.Instance.algoritmo;
+
+        Debug.Log($"Spawner: Objects={numberOfObjects}, Mode={chosenMode}, Algoritmo={algoritmo}");
+
         StartCoroutine(SpawnObjects());
     }
 
     IEnumerator SpawnObjects()
     {
         GameObject[] spawnedObjects = new GameObject[numberOfObjects];
+
+        // Decide qual prefab usar
+        GameObject prefab = BenchmarkConfig.Instance.prefabNome == "Sphere" ? spherePrefab : cubePrefab;
 
         for (int i = 0; i < numberOfObjects; i++)
         {
@@ -45,5 +57,8 @@ public class SceneObjectSpawner : MonoBehaviour
 
             phys.SetMode(chosenMode);
         }
+
+        // Aqui você pode passar o `algoritmo` para o manager de Broadphase, se tiver.
+        Debug.Log($"Spawner terminou — todos objetos criados com modo {chosenMode}.");
     }
 }

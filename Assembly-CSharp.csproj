@@ -81,9 +81,11 @@
     <Compile Include="Assets\scripts\outroscene\BrownianMotion.cs" />
     <Compile Include="Assets\scripts\outroscene\testeDLL.cs" />
     <Compile Include="Assets\scripts\algoritmos\TracyManager.cs" />
+    <Compile Include="Assets\scripts\menu\ReturnToMenuButton.cs" />
     <Compile Include="Assets\scripts\AABBObjectController.cs" />
     <Compile Include="Assets\scripts\outroscene\BFTester.cs" />
     <Compile Include="Assets\scripts\outroscene\AABB.cs" />
+    <Compile Include="Assets\scripts\menu\BenchmarkConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

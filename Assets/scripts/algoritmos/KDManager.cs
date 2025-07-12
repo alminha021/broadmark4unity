@@ -2,12 +2,12 @@ using System;
 using System.Collections;
 using System.Runtime.InteropServices;
 using UnityEngine;
-
+//Layout q utilizo nos 3 ancoras,scripts nos gameobjects, para fujncionar a troca de dll e csharp
 public class KDManager : MonoBehaviour
-{
+{//strucklayout [in] [out] para correçao de bugs, de garbagecollector e gerenciar memoria
      [StructLayout(LayoutKind.Sequential, Pack = 4)]
     public struct Vec3
-    {
+    {//precisa do w, pois na dll sao 4 valores o vec, q eh como o broadmark funciona
         public float x, y, z, w;
         public Vec3(float x, float y, float z)
         {
@@ -77,7 +77,7 @@ public class KDManager : MonoBehaviour
             var objects = FindObjectsOfType<AABBObjectController>();
             if (objects.Length == 0)
             {
-                Debug.LogWarning("❗ Nenhum objeto AABB na cena.");
+                Debug.LogWarning("Nenhum objeto AABB na cena.");
                 isInitialized = false;
                 collisionUIController?.UpdateCollisionCount(0);
                 return;
@@ -139,7 +139,7 @@ public class KDManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"🚨 KDTree Erro: {e.Message}");
+            Debug.LogError($" KDTree Erro: {e.Message}");
         }
     }
 
@@ -150,7 +150,7 @@ public class KDManager : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log("🧹 Limpando KDTree.");
+        Debug.Log("Limpando KDTree.");
         KD_Destroy();
     }
 }
