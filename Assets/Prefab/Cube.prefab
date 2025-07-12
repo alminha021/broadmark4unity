@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7865406342721657953}
   - component: {fileID: 668841851846126234}
   - component: {fileID: 1084871187360685388}
-  - component: {fileID: 4853784149988112181}
   - component: {fileID: -4805156140168619717}
   - component: {fileID: 6094194332796002383}
   m_Layer: 0
@@ -108,21 +107,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4853784149988112181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2870263302674931029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 755f90431783b5040b27271d1c9ffb58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  min: {x: 0, y: 0, z: 0}
-  max: {x: 0, y: 0, z: 0}
-  gizmoColor: {r: 0.1615085, g: 0.084549636, b: 0.9433962, a: 1}
 --- !u!54 &-4805156140168619717
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,8 +146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb183afcce18d54dbd1fd796fd61090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 4
-  speed: 5
+  mode: 2
+  speed: 10
   rotationInterval: 3
+  rotatingGravityMultiplier: 9
   hurricaneForce: 20
   hurricaneCenter: {x: 0, y: 0, z: 0}

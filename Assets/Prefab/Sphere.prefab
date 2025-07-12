@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 3073737472049987723}
   - component: {fileID: 7450126035696602372}
   - component: {fileID: 6559553670102968381}
-  - component: {fileID: 5903011352964345688}
   - component: {fileID: -5384852608222590686}
-  - component: {fileID: 5094238814165724585}
+  - component: {fileID: -4759158886797192429}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -108,21 +107,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5903011352964345688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2129921382981897906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 755f90431783b5040b27271d1c9ffb58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  min: {x: 0, y: 0, z: 0}
-  max: {x: 0, y: 0, z: 0}
-  gizmoColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!54 &-5384852608222590686
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &5094238814165724585
+--- !u!114 &-4759158886797192429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,8 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb183afcce18d54dbd1fd796fd61090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 4
-  speed: 100
-  rotationInterval: 10
-  hurricaneForce: 50
+  mode: 0
+  speed: 5
+  rotationInterval: 3
+  hurricaneForce: 20
   hurricaneCenter: {x: 0, y: 0, z: 0}

@@ -130,7 +130,7 @@ public class BroadmarkManager : MonoBehaviour
             if (collisionUIController != null)
                 collisionUIController.UpdateCollisionCount(pairCount);
 
-            // Validação visual C#
+            /* Validação visual C#
             for (int i = 0; i < objects.Length; i++)
             {
                 for (int j = i + 1; j < objects.Length; j++)
@@ -141,7 +141,7 @@ public class BroadmarkManager : MonoBehaviour
                         objects[j].SetColor(Color.red);
                     }
                 }
-            }
+            }*/
         }
         catch (Exception e)
         {

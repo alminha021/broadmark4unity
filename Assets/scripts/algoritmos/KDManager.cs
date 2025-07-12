@@ -125,7 +125,7 @@ public class KDManager : MonoBehaviour
             if (collisionUIController != null)
                 collisionUIController.UpdateCollisionCount(pairCount);
 
-            for (int i = 0; i < objects.Length; i++)
+            /*for (int i = 0; i < objects.Length; i++)
             {
                 for (int j = i + 1; j < objects.Length; j++)
                 {
@@ -135,7 +135,7 @@ public class KDManager : MonoBehaviour
                         objects[j].SetColor(Color.red);
                     }
                 }
-            }
+            }*/
         }
         catch (Exception e)
         {

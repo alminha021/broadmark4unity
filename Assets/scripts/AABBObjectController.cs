@@ -2,17 +2,15 @@ using UnityEngine;
 
 public class AABBObjectController : MonoBehaviour
 {
-    public int id;  // ID fixo, atribuído externamente
+    public int id;
 
     public Vector3 min;
     public Vector3 max;
 
-    private float halfSize = 1f;
     private Renderer rend;
 
     void Start()
     {
-        halfSize = transform.localScale.x / 2f;
         rend = GetComponent<Renderer>();
     }
 
@@ -23,14 +21,26 @@ public class AABBObjectController : MonoBehaviour
 
     public void UpdateAABB()
     {
-        Vector3 p = transform.position;
-        min = p - Vector3.one * halfSize;
-        max = p + Vector3.one * halfSize;
+        if (rend == null) return;
+
+        Bounds b = rend.bounds;
+
+        min = b.min;
+        max = b.max;
     }
 
     public void SetColor(Color c)
     {
         if (rend != null)
             rend.material.color = c;
+    }
+
+    // 👇 Gizmo para visualizar o AABB em amarelo
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Vector3 size = max - min;
+        Vector3 center = min + size * 0.5f;
+        Gizmos.DrawWireCube(center, size);
     }
 }

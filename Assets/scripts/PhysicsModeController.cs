@@ -11,15 +11,33 @@ public class PhysicsModeController : MonoBehaviour
         Hurricane
     }
 
+    [Header("Configurações Gerais")]
     public MovementMode mode = MovementMode.Brownian;
     public float speed = 5f;
+
+    [Header("Rotating Gravity")]
     public float rotationInterval = 3f;
+    public float rotatingGravityMultiplier = 3f;
+
+    [Header("Hurricane")]
     public float hurricaneForce = 20f;
     public Vector3 hurricaneCenter = Vector3.zero;
 
     private Rigidbody rb;
-    private Vector3 currentGravity;
+
+    private Vector3[] directions = new Vector3[]
+    {
+        Vector3.down,
+        Vector3.right,
+        Vector3.up,
+        Vector3.left
+    };
+
+    private int currentDirectionIndex = 0;
     private float rotationTimer;
+
+    // Para RandomGravity
+    private Vector3 currentRandomGravity;
 
     void Start()
     {
@@ -30,8 +48,6 @@ public class PhysicsModeController : MonoBehaviour
             enabled = false;
             return;
         }
-
-        SetupMode();
     }
 
     void SetupMode()
@@ -49,13 +65,14 @@ public class PhysicsModeController : MonoBehaviour
 
             case MovementMode.RandomGravity:
                 rb.useGravity = false;
-                currentGravity = Random.onUnitSphere * 9.81f;
+                currentRandomGravity = Random.onUnitSphere * 9.81f;
                 break;
 
             case MovementMode.RotatingGravity:
                 rb.useGravity = false;
-                currentGravity = Vector3.down * 9.81f;
+                currentDirectionIndex = 0;
                 rotationTimer = rotationInterval;
+                rb.velocity = directions[currentDirectionIndex] * speed * rotatingGravityMultiplier;
                 break;
 
             case MovementMode.Hurricane:
@@ -69,36 +86,39 @@ public class PhysicsModeController : MonoBehaviour
         switch (mode)
         {
             case MovementMode.Brownian:
-                Vector3 randomChange = Random.insideUnitSphere * 3f; // mais forte
+                Vector3 randomChange = Random.insideUnitSphere * 3f;
                 rb.velocity += randomChange * Time.fixedDeltaTime;
                 rb.velocity = Vector3.ClampMagnitude(rb.velocity, speed);
                 break;
 
             case MovementMode.RandomGravity:
-                rb.AddForce(currentGravity, ForceMode.Acceleration);
+                rb.AddForce(currentRandomGravity, ForceMode.Acceleration);
                 break;
 
             case MovementMode.RotatingGravity:
                 rotationTimer -= Time.fixedDeltaTime;
                 if (rotationTimer <= 0f)
                 {
-                    currentGravity = Random.onUnitSphere * 9.81f;
+                    currentDirectionIndex = (currentDirectionIndex + 1) % directions.Length;
                     rotationTimer = rotationInterval;
                 }
-                rb.AddForce(currentGravity, ForceMode.Acceleration);
+
+                float localForce = speed * rotatingGravityMultiplier;
+                rb.AddForce(directions[currentDirectionIndex] * localForce, ForceMode.Acceleration);
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity, localForce * 2f);
                 break;
 
             case MovementMode.Hurricane:
                 Vector3 toCenter = hurricaneCenter - transform.position;
                 Vector3 perpendicular = Vector3.Cross(toCenter.normalized, Vector3.up);
                 Vector3 swirlForce = perpendicular * hurricaneForce + toCenter.normalized * (hurricaneForce * 0.5f);
-
                 rb.AddForce(swirlForce, ForceMode.Acceleration);
                 break;
+
+            // FreeFall: nada a fazer aqui
         }
     }
 
-    // Se quiser trocar modo via script externo
     public void SetMode(MovementMode newMode)
     {
         mode = newMode;

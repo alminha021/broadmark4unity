@@ -136,7 +136,7 @@ public class TracyManager : MonoBehaviour
             if (collisionUIController != null)
                 collisionUIController.UpdateCollisionCount(pairCount);
 
-            // Validação visual no Unity: pinta de vermelho os objetos em colisão
+            /* Validação visual no Unity: pinta de vermelho os objetos em colisão
             for (int i = 0; i < objects.Length; i++)
             {
                 for (int j = i + 1; j < objects.Length; j++)
@@ -147,7 +147,7 @@ public class TracyManager : MonoBehaviour
                         objects[j].SetColor(Color.red);
                     }
                 }
-            }
+            }*/
         }
         catch (Exception e)
         {
