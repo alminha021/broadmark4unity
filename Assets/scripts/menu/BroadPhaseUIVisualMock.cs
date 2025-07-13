@@ -18,7 +18,7 @@ public class BroadPhaseUIVisualMock : MonoBehaviour
         algorithmDropdown.AddOptions(new System.Collections.Generic.List<string> { "BruteForce", "Tracy", "KDTree"});
 
         objectCountDropdown.ClearOptions();
-        objectCountDropdown.AddOptions(new System.Collections.Generic.List<string> { "100", "200", "400", "800","1600","3200"});
+        objectCountDropdown.AddOptions(new System.Collections.Generic.List<string> { "100", "200", "400", "800","1600","3200","6400","12800"});
 
         scenarioDropdown.ClearOptions();
         scenarioDropdown.AddOptions(new System.Collections.Generic.List<string> { "FreeFall", "Brownian", "RandomGravity", "RotatingGravity", "Hurricane" });

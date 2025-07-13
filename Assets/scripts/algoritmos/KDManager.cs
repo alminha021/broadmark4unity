@@ -26,10 +26,10 @@ public class KDManager : MonoBehaviour
     }
 
 
-    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kd3", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_Create();
 
-    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kd3", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_InitializeWithVecs(
         UIntPtr numberOfObjects, [In] Aabb[] aabbs,
         float worldMinX, float worldMinY, float worldMinZ,
@@ -37,19 +37,19 @@ public class KDManager : MonoBehaviour
         float marginX, float marginY, float marginZ
     );
 
-    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kd3", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_UpdateObjects([In] Aabb[] aabbs);
 
-    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kd3", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_CleanCache();
 
-    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kd3", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_SearchOverlaps();
 
-    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kd3", CallingConvention = CallingConvention.Cdecl)]
     private static extern UIntPtr KD_GetPairCount();
 
-    [DllImport("kdthook", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport("kd3", CallingConvention = CallingConvention.Cdecl)]
     private static extern void KD_Destroy();
 
     private ulong totalOverlaps = 0;
@@ -115,7 +115,7 @@ public class KDManager : MonoBehaviour
                 KD_UpdateObjects(aabbs);
             }
 
-            KD_CleanCache();
+             KD_CleanCache();
             KD_SearchOverlaps();
              
 
@@ -143,14 +143,15 @@ public class KDManager : MonoBehaviour
         }
     }
 
-    bool CheckAABBOverlap(AABBObjectController a, AABBObjectController b) =>
-        a.min.x <= b.max.x && a.max.x >= b.min.x &&
-        a.min.y <= b.max.y && a.max.y >= b.min.y &&
-        a.min.z <= b.max.z && a.max.z >= b.min.z;
-
+   bool CheckAABBOverlap(AABBObjectController a, AABBObjectController b)
+    {
+        return (a.min.x <= b.max.x && a.max.x >= b.min.x) &&
+               (a.min.y <= b.max.y && a.max.y >= b.min.y) &&
+               (a.min.z <= b.max.z && a.max.z >= b.min.z);
+    }
     void OnDestroy()
     {
-        Debug.Log("Limpando KDTree.");
+        Debug.Log("Limpando  KDTree.");
         KD_Destroy();
     }
 }
