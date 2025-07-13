@@ -1036,7 +1036,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 426cedda0974c3648a1d0c1aa8e48627, type: 2}
+  - {fileID: 2100000, guid: 5a8c320bf528005499297948878c9bf3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1142,7 +1142,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 426cedda0974c3648a1d0c1aa8e48627, type: 2}
+  - {fileID: 2100000, guid: 5a8c320bf528005499297948878c9bf3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1579,7 +1579,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 426cedda0974c3648a1d0c1aa8e48627, type: 2}
+  - {fileID: 2100000, guid: 5a8c320bf528005499297948878c9bf3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1730,7 +1730,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 426cedda0974c3648a1d0c1aa8e48627, type: 2}
+  - {fileID: 2100000, guid: 5a8c320bf528005499297948878c9bf3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1869,7 +1869,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 426cedda0974c3648a1d0c1aa8e48627, type: 2}
+  - {fileID: 2100000, guid: 5a8c320bf528005499297948878c9bf3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2175,7 +2175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 426cedda0974c3648a1d0c1aa8e48627, type: 2}
+  - {fileID: 2100000, guid: 5a8c320bf528005499297948878c9bf3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2284,6 +2284,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 2870263302674931029, guid: 8ef05207213ded0419390baeefdf3b08, type: 3}
   spherePrefab: {fileID: 2129921382981897906, guid: c55854dde54732149a26c8ffcd3b6c9e, type: 3}
+  randomPrefabs:
+  - {fileID: 2870263302674931029, guid: 8ef05207213ded0419390baeefdf3b08, type: 3}
+  - {fileID: 7973165567571510972, guid: 3b16b6e87a6c241429b401013ab82f41, type: 3}
+  - {fileID: 2129921382981897906, guid: c55854dde54732149a26c8ffcd3b6c9e, type: 3}
+  - {fileID: 2898790611463150307, guid: 0ff5219ff54896f4289ab1b500133522, type: 3}
 --- !u!4 &1971016995
 Transform:
   m_ObjectHideFlags: 0

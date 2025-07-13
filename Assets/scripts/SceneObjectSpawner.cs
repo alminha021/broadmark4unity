@@ -1,24 +1,28 @@
 using UnityEngine;
 using System.Collections;
 
-public class SceneObjectSpawner : MonoBehaviour //spawner de obj na scene
+public class SceneObjectSpawner : MonoBehaviour
 {
-    [Header("Prefab para spawn")]
+    [Header("Prefabs fixos")]
     public GameObject cubePrefab;
     public GameObject spherePrefab;
+    //suporte a random objects
+    [Header("Prefabs para RandomObjects")]
+    public GameObject[] randomPrefabs;
 
     private int numberOfObjects;
     private PhysicsModeController.MovementMode chosenMode;
     private string algoritmo;
+    private string prefabEscolhido;
 
     void Start()
     {
-        // Lê o que o usuário escolheu no BenchmarkConfig
         numberOfObjects = BenchmarkConfig.Instance.numeroDeObjetos;
         chosenMode = BenchmarkConfig.Instance.scenario;
         algoritmo = BenchmarkConfig.Instance.algoritmo;
+        prefabEscolhido = BenchmarkConfig.Instance.prefabNome;
 
-        Debug.Log($"Spawner: Objects={numberOfObjects}, Mode={chosenMode}, Algoritmo={algoritmo}");
+        Debug.Log($"Spawner: Objects={numberOfObjects}, Mode={chosenMode}, Algoritmo={algoritmo}, Prefab={prefabEscolhido}");
 
         StartCoroutine(SpawnObjects());
     }
@@ -26,9 +30,6 @@ public class SceneObjectSpawner : MonoBehaviour //spawner de obj na scene
     IEnumerator SpawnObjects()
     {
         GameObject[] spawnedObjects = new GameObject[numberOfObjects];
-
-        // Decide qual prefab usar
-        GameObject prefab = BenchmarkConfig.Instance.prefabNome == "Sphere" ? spherePrefab : cubePrefab;
 
         for (int i = 0; i < numberOfObjects; i++)
         {
@@ -38,7 +39,27 @@ public class SceneObjectSpawner : MonoBehaviour //spawner de obj na scene
                 Random.Range(-40f, 40f)
             );
 
-            GameObject obj = Instantiate(prefab, pos, Quaternion.identity);
+            GameObject prefabToSpawn;
+
+            if (prefabEscolhido == "Cube")
+            {
+                prefabToSpawn = cubePrefab;
+            }
+            else if (prefabEscolhido == "Sphere")
+            {
+                prefabToSpawn = spherePrefab;
+            }
+            else if (prefabEscolhido == "RandomObjects")
+            {
+                prefabToSpawn = randomPrefabs[Random.Range(0, randomPrefabs.Length)];
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ Prefab não reconhecido, usando Cube como padrão.");
+                prefabToSpawn = cubePrefab;
+            }
+
+            GameObject obj = Instantiate(prefabToSpawn, pos, Quaternion.identity);
             obj.transform.localScale = Vector3.one * Random.Range(2f, 4f);
 
             if (obj.GetComponent<AABBObjectController>() == null)
@@ -58,7 +79,6 @@ public class SceneObjectSpawner : MonoBehaviour //spawner de obj na scene
             phys.SetMode(chosenMode);
         }
 
-        // Aqui você pode passar o `algoritmo` para o manager de Broadphase, se tiver.
-        Debug.Log($"Spawner terminou — todos objetos criados com modo {chosenMode}.");
+        Debug.Log($" Spawner terminou — todos objetos criados com modo {chosenMode}.");
     }
 }

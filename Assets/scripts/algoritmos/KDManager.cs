@@ -92,7 +92,7 @@ public class KDManager : MonoBehaviour
                     min = new Vec3(objects[i].min.x, objects[i].min.y, objects[i].min.z),
                     max = new Vec3(objects[i].max.x, objects[i].max.y, objects[i].max.z)
                 };
-                objects[i].SetColor(Color.green);
+                //objects[i].SetColor(Color.green);
             }
 
             if (!isInitialized || objects.Length != lastObjectCount)

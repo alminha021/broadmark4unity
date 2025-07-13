@@ -102,8 +102,8 @@ public class BroadmarkManager : MonoBehaviour
             }
 
             // Resetar cor dos objetos
-            foreach (var obj in objects)
-                obj.SetColor(Color.green);
+           // foreach (var obj in objects)
+              //  obj.SetColor(Color.green);
 
             if (!isInitialized || objects.Length != lastObjectCount)
             {

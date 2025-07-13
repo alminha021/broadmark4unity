@@ -6,7 +6,7 @@ public class WorldBoundsDrawer : MonoBehaviour
     [Header("World Bounds")]
     public Vector3 worldMin = new Vector3(-50, -50, -50);
     public Vector3 worldMax = new Vector3(50, 50, 50);
-    public Color worldColor = Color.white;
+    public Color worldColor = Color.black;
 
     [Header("AABB Objects")]
     public Color aabbColor = Color.green;

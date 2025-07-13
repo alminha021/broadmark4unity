@@ -147,7 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  speed: 5
+  speed: 10
   rotationInterval: 3
+  rotatingGravityMultiplier: 9
   hurricaneForce: 20
   hurricaneCenter: {x: 0, y: 0, z: 0}

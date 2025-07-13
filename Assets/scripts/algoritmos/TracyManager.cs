@@ -102,8 +102,8 @@ public class TracyManager : MonoBehaviour
             }
 
             // Resetar cor dos objetos para verde (sem colisão)
-            foreach (var obj in objects)
-                obj.SetColor(Color.green);
+            //foreach (var obj in objects)
+                //obj.SetColor(Color.green);
 
             if (!isInitialized || objects.Length != lastObjectCount)
             {
