@@ -2,8 +2,14 @@
 ![B4u](docs/broadmark4unity.png)
 **Broadmark4Unity** é um plugin que integra algoritmos validados do [Broadmark](https://github.com/) à engine Unity usando uma biblioteca externa em C++. O objetivo é permitir testes, comparações e visualizações de algoritmos de detecção de colisões na etapa de *broad phase* em tempo real.
 
----
+-
+Authors:
+  
+Raul Costa Feitosa (UNIVERSIDADE DE FORTALEZA)
+ 
+Andréia Formico (UNIVERSIDADE DE FORTALEZA)
 
+---
 ## 📌 Funcionalidades
 
 - Implementa 3 algoritmos: **Brute Force**, **Tracy** e **KD-Tree**
@@ -60,7 +66,6 @@ Abaixo, um exemplo de Cenários dinâmicos configuráveis na Unity:
 
 
 Sinta-se livre para utilizar os 3 scripts que possuem os algoritmos a vontade.
-
 
 
 
