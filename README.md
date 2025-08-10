@@ -5,9 +5,9 @@
 -
 Authors:
   
-Raul Costa Feitosa (UNIVERSIDADE DE FORTALEZA)
+Raul Costa Feitosa. PPGIA - Universidade de Fortaleza (Unifor)
  
-Andréia Formico (UNIVERSIDADE DE FORTALEZA)
+Andréia Formico. PPGIA - Universidade de Fortaleza (Unifor)
 
 ---
 ## 📌 Funcionalidades
